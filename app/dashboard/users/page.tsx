@@ -12,6 +12,7 @@ import ExportButton from "@/components/dashboard/export-button";
 
 export default async function UsersPage() {
   const users = await fetchAllyUsers();
+  // console.log(users);
 
   return (
     <div className="space-y-6">

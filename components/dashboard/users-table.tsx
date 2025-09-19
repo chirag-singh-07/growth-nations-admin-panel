@@ -1,24 +1,39 @@
-"use client"
+"use client";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import { Skeleton } from "@/components/ui/skeleton"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface User {
-  id: string
-  name: string
-  email: string
-  phone: string
-  registrationDate: string
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  createdAt: string;
 }
 
 interface UsersTableProps {
-  users: User[]
-  loading: boolean
+  users: User[];
+  loading: boolean;
+}
+
+function getRegisterDate(user: User): string {
+  return new Date(user.createdAt).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 }
 
 export function UsersTable({ users, loading }: UsersTableProps) {
-  const safeUsers = Array.isArray(users) ? users : []
+  const safeUsers = Array.isArray(users) ? users : [];
 
   if (loading) {
     return (
@@ -32,7 +47,7 @@ export function UsersTable({ users, loading }: UsersTableProps) {
           </div>
         ))}
       </div>
-    )
+    );
   }
 
   const formatDate = (dateString: string) => {
@@ -40,8 +55,8 @@ export function UsersTable({ users, loading }: UsersTableProps) {
       year: "numeric",
       month: "short",
       day: "numeric",
-    })
-  }
+    });
+  };
 
   return (
     <div className="rounded-md border">
@@ -58,7 +73,10 @@ export function UsersTable({ users, loading }: UsersTableProps) {
         <TableBody>
           {safeUsers.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
+              <TableCell
+                colSpan={5}
+                className="text-center py-8 text-muted-foreground"
+              >
                 No users found
               </TableCell>
             </TableRow>
@@ -68,7 +86,8 @@ export function UsersTable({ users, loading }: UsersTableProps) {
                 <TableCell className="font-medium">{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.phone}</TableCell>
-                <TableCell>{formatDate(user.registrationDate)}</TableCell>
+                {/* <TableCell>{formatDate()}</TableCell> */}
+                <TableCell>{formatDate(getRegisterDate(user))}</TableCell>
                 <TableCell>
                   <Badge variant="secondary">Active</Badge>
                 </TableCell>
@@ -78,5 +97,5 @@ export function UsersTable({ users, loading }: UsersTableProps) {
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }
