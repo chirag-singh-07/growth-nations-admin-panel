@@ -10,7 +10,6 @@ export const fetchUserData = async (userId: string) => {
     const response = await fetch(`${API_BASE_URL}/api/users/${userId}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      cache: "no-store", // ✅ avoids Next.js caching
     });
     if (!response.ok) {
       throw new Error(`Failed to fetch user data: ${response.statusText}`);
@@ -28,7 +27,6 @@ export const fetchAllyUsers = async () => {
     const response = await fetch(`${API_BASE_URL}/api/leads`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      cache: "no-store", // ✅ avoids Next.js caching
     });
 
     if (!response.ok) {
@@ -69,7 +67,6 @@ export const fetchDashboardStats = async () => {
     const response = await fetch(`${API_BASE_URL}/api/stats`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      cache: "no-store",
     });
 
     if (!response.ok) {
@@ -90,7 +87,6 @@ export const fetchRecentUsers = async () => {
     const res = await fetch(`${API_BASE_URL}/api/leads/latest-leads`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      cache: "no-store",
     });
 
     if (!res.ok) {
